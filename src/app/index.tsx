@@ -1,125 +1,197 @@
-import { StyleSheet, Text, View } from "react-native";
+import { useState } from "react";
+import {
+  Alert,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
-export default function HomeScreen() {
+import { router } from "expo-router";
+
+export default function Screen1() {
+  const [userName, setUserName] = useState("");
+  const [mssv, setMssv] = useState("");
+
+  const handleClick = () => {
+    if (userName.trim() === "") {
+      Alert.alert("Thông báo", "Vui lòng nhập UserName");
+      return;
+    }
+
+    if (mssv.trim() === "") {
+      Alert.alert("Thông báo", "Vui lòng nhập MSSV");
+      return;
+    }
+
+    router.push({
+      pathname: "/Screen",
+      params: {
+        userName: userName,
+        mssv: mssv,
+      },
+    });
+  };
+
   return (
-    <View style={styles.container}>
-      {}
-      <View style={[styles.box, styles.box1]}>
-        <Text style={styles.text}>1</Text>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.box1}>
+        <Text style={styles.whiteNumber}>1</Text>
       </View>
 
-      {}
-      <View style={[styles.box, styles.box2]}>
-        <Text style={styles.text}>2</Text>
+      <View style={styles.box2}>
+        <Text style={styles.whiteNumber}>2</Text>
       </View>
 
-      {}
-      <View style={styles.row}>
-        <View style={[styles.box, styles.box3]}>
-          <Text style={styles.text}>3</Text>
+      <View style={styles.row345}>
+        <View style={styles.box3}>
+          <Text style={styles.blackNumber}>3</Text>
         </View>
 
-        <View style={[styles.box, styles.box4]}>
-          <Text style={styles.text}>4</Text>
+        <View style={styles.box4}>
+          <Text style={styles.whiteNumber}>4</Text>
         </View>
 
-        <View style={[styles.box, styles.box5]}>
-          <Text style={styles.text}>5</Text>
-        </View>
-
-        <View style={[styles.box, styles.box7]}>
-          <Text style={styles.text}></Text>
+        <View style={styles.box5}>
+          <Text style={styles.whiteNumber}>5</Text>
         </View>
       </View>
 
-      {}
-      <View style={[styles.box, styles.box6]}>
-        <Text style={styles.text}>6</Text>
+      <View style={styles.box6}>
+        <Text style={styles.whiteNumber}>6</Text>
       </View>
 
-      {}
-      <View style={styles.footer}>
-        <Text style={styles.footerText}>BIT247016-Nguyễn Thành Nam</Text>
-      </View>
-    </View>
+      <TextInput
+        style={styles.input}
+        placeholder="UserName"
+        value={userName}
+        onChangeText={setUserName}
+      />
+
+      <TextInput
+        style={styles.input}
+        placeholder="MSSV"
+        value={mssv}
+        onChangeText={setMssv}
+        keyboardType="numeric"
+      />
+
+      <TouchableOpacity style={styles.button} onPress={handleClick}>
+        <Text style={styles.buttonText}>Click me</Text>
+      </TouchableOpacity>
+
+      <Text style={styles.footer}>
+        {userName || "Họ và tên"} - {mssv || "MSSV"}
+      </Text>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    paddingTop: 8,
-    paddingHorizontal: 5,
-  },
-
-  box: {
-    justifyContent: "center",
-    alignItems: "center",
-    borderWidth: 3,
-    borderColor: "#fff",
-  },
-
-  text: {
-    fontSize: 30,
-    fontWeight: "bold",
-    color: "#fff",
+    backgroundColor: "white",
+    padding: 5,
   },
 
   box1: {
-    height: 80,
+    height: 78,
     backgroundColor: "#2F80ED",
-    marginBottom: 4,
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 6,
   },
 
   box2: {
-    height: 80,
-    backgroundColor: "#FF3B3B",
-    marginBottom: 4,
+    height: 78,
+    backgroundColor: "#FF3B3F",
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 6,
   },
 
-  row: {
+  row345: {
+    height: 160,
     flexDirection: "row",
-    height: 165,
-    marginBottom: 4,
+    marginBottom: 6,
   },
 
   box3: {
-    flex: 1,
-    backgroundColor: "#FFD21C",
-    marginRight: 4,
+    width: "25%",
+    backgroundColor: "#FFD21F",
+    justifyContent: "center",
+    alignItems: "center",
+    marginRight: 6,
   },
 
   box4: {
-    flex: 1,
-    backgroundColor: "#2DB36B",
-    marginRight: 4,
+    width: "25%",
+    backgroundColor: "#2FB36C",
+    justifyContent: "center",
+    alignItems: "center",
+    marginRight: 6,
   },
 
   box5: {
-    flex: 1,
-    backgroundColor: "#7B3FE4",
-  },
-
-  box7: {
-    flex: 1,
-    backgroundColor: "rgb(240, 243, 246)",
+    width: "25%",
+    backgroundColor: "#7D3FE0",
+    justifyContent: "center",
+    alignItems: "center",
   },
 
   box6: {
-    height: 135,
-    backgroundColor: "#FF7614",
+    height: 133,
+    backgroundColor: "#FF7411",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  whiteNumber: {
+    fontSize: 32,
+    fontWeight: "bold",
+    color: "white",
+  },
+
+  blackNumber: {
+    fontSize: 32,
+    fontWeight: "bold",
+    color: "black",
+  },
+
+  input: {
+    height: 48,
+    borderWidth: 1,
+    borderColor: "#999",
+    borderRadius: 5,
+    marginTop: 10,
+    paddingHorizontal: 15,
+    fontSize: 16,
+  },
+
+  button: {
+    backgroundColor: "black",
+    width: 130,
+    height: 48,
+    borderRadius: 8,
+    justifyContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
+    marginTop: 15,
+  },
+
+  buttonText: {
+    color: "white",
+    fontSize: 18,
+    fontWeight: "bold",
   },
 
   footer: {
-    flex: 1,
-    justifyContent: "flex-end",
-    alignItems: "center",
-    paddingBottom: 20,
-  },
-
-  footerText: {
-    fontSize: 16,
+    textAlign: "center",
+    fontSize: 14,
     color: "#333",
+    marginTop: "auto",
+    marginBottom: 10,
   },
 });
